@@ -1,0 +1,123 @@
+﻿<UserControl x:Name="ucCliente" x:Class="Banco.View.ClienteControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Banco.View"
+             mc:Ignorable="d" 
+              Height="600" Width="700"
+             Background="Transparent" Loaded="UserControl_Loaded">
+
+    <UserControl.Resources>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Montserrat"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="140"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="#462AD8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="18">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#28AEED"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="250"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Datos del Cliente"
+                  Foreground="White"
+                  FontFamily="Montserrat"
+                  FontWeight="Bold"
+                  BorderBrush="#462AD8"
+                  Background="Transparent"
+                  Padding="15"
+                  Grid.Row="0" Grid.RowSpan="2" Margin="0,0,10,62">
+            <Grid Height="280" Margin="0,0,309,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Campos -->
+
+                <TextBlock Text="Nombre" Grid.Row="1" Grid.Column="0" Foreground="White" Margin="0,10,10,5"/>
+                <TextBox x:Name="txtNombre" Background="Transparent"  Foreground="White" Grid.Row="1" Grid.Column="1" Margin="0,10,0,5" KeyUp="txtNombre_KeyUp"/>
+
+                <TextBlock Text="Apellidos" Grid.Row="2" Grid.Column="0" Foreground="White" Margin="0,10,10,5"/>
+                <TextBox x:Name="txtApellidos" Background="Transparent" Foreground="White" Grid.Row="2" Grid.Column="1" Margin="0,10,0,5"/>
+
+                <TextBlock Text="Celular" Grid.Row="3" Grid.Column="0" Foreground="White" Margin="0,10,10,5"/>
+                <TextBox x:Name="txtCelular" MaxLength="10" Background="Transparent" Foreground="White" Grid.Row="3" Grid.Column="1" Margin="0,10,0,5" PreviewTextInput="txtCelular_PreviewTextInput_1"/>
+
+                <TextBlock Text="Email" Grid.Row="4" Grid.Column="0" Foreground="White" Margin="0,10,10,5"/>
+                <TextBox x:Name="txtEmail" Background="Transparent" Foreground="White" Grid.Row="4" Grid.Column="1" Margin="0,10,0,5"/>
+
+                <TextBlock Text="Dirección" Grid.Row="5" Grid.Column="0" Foreground="White" Margin="0,10,10,5"/>
+                <TextBox x:Name="txtDireccion" Background="Transparent" Foreground="White" Grid.Row="5" Grid.Column="1" Margin="0,10,0,5"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Acciones -->
+        <GroupBox Header="Acciones"
+                  Foreground="White"
+                  FontFamily="Montserrat"
+                  FontWeight="Bold"
+                  BorderBrush="#462AD8"
+                  Background="Transparent"
+                  Padding="15"
+                  Grid.Row="0" Grid.RowSpan="2" Margin="368,10,10,86">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" >
+                <Button x:Name="btnGuardar" Content="Guardar" Style="{StaticResource CustomButtonStyle}" Margin="0,0,0,10" Click="btnGuardar_Click"/>
+                <Button x:Name="btnEditar" Content="Editar" Style="{StaticResource CustomButtonStyle}" Margin="0,0,0,10" Click="btnEditar_Click"/>
+                <Button x:Name="btnLimpiar" Content="Limpiar" Style="{StaticResource CustomButtonStyle}" Margin="0,0,0,10" Click="btnLimpiar_Click"/>
+                <Button x:Name="btnSalir" Content="Salir" Style="{StaticResource CustomButtonStyle}" Click="btnSalir_Click"/>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- DataGrid -->
+        <DataGrid x:Name="dgClientes"
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  Background="White"
+                  HeadersVisibility="Column"
+                  FontFamily="Montserrat"
+                  AlternatingRowBackground="#F0F0F0"
+                  CanUserAddRows="False" SelectionChanged="dgClientes_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ClienteID" Binding="{Binding ClienteID}" Width="*"/>
+                <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/>
+                <DataGridTextColumn Header="Apellidos" Binding="{Binding Apellidos}" Width="*"/>
+                <DataGridTextColumn Header="Celular" Binding="{Binding Celular}" Width="*"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
+                <DataGridTextColumn Header="Dirección" Binding="{Binding Direccion}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+
+</UserControl>

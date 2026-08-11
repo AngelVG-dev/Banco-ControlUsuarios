@@ -1,0 +1,138 @@
+﻿<UserControl x:Name="ucCuenta" x:Class="Banco.View.CuentaControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Banco.View"
+             mc:Ignorable="d" 
+             Height="600" Width="700"
+             Background="Transparent" Loaded="ucCuenta_Loaded">
+
+
+    <UserControl.Resources>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Montserrat"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="#462AD8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#28AEED"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="300"/>
+        </Grid.RowDefinitions>
+
+        <!-- Datos de la Cuenta -->
+        <GroupBox Header="Datos de la Cuenta"
+                  Foreground="White"
+                  FontFamily="Montserrat"
+                  FontWeight="Bold"
+                  BorderBrush="#462AD8"
+                  Background="Transparent"
+                  Padding="15"
+                  Grid.Row="0" Grid.RowSpan="2" Margin="0,0,10,19">
+            <Grid Height="196" Margin="0,0,309,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Nombre del cliente" Grid.Row="1" Grid.Column="0" Foreground="White" Margin="0,10,10,5"/>
+
+                <TextBlock Text="Clave Bancaria" Grid.Row="2" Grid.Column="0" Foreground="White" Margin="0,10,10,5"/>
+                <TextBox x:Name="txtClaveBancaria" Background="Transparent" Foreground="White"  IsReadOnly="True" Grid.Row="2" Grid.Column="1" Margin="0,10,0,5"/>
+
+                <TextBlock Text="Tipo de Cuenta" Grid.Row="3" Grid.Column="0" Foreground="White" Margin="0,10,10,5"/>
+
+                <TextBlock Text="Saldo" Grid.Row="4" Grid.Column="0" Foreground="White" Margin="0,10,10,5"/>
+                <TextBox x:Name="txtSaldo" Background="Transparent" Foreground="White" Grid.Row="4" Grid.Column="1" Margin="0,10,0,5" PreviewTextInput="txtSaldo_PreviewTextInput"/>
+
+                <TextBlock Text="Fecha de Apertura" Grid.Row="5" Grid.Column="0" Foreground="White" Margin="0,10,10,5"/>
+                <TextBox x:Name="txtFechaApertura" Background="Transparent" Foreground="White" Grid.Row="5" Grid.Column="1" Margin="0,10,0,5"/>
+                <ComboBox x:Name="cmbNombreCliente" Grid.Column="1" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="158" Grid.Row="1" Grid.RowSpan="2"/>
+                <ComboBox x:Name="cmbTipoCuenta" Grid.Column="1" HorizontalAlignment="Right" Margin="0,14,1,0" VerticalAlignment="Top" Width="158" Grid.Row="3" Grid.RowSpan="2">
+                    <ComboBoxItem Content="Debito"/>
+                    <ComboBoxItem Content="Credito"/>
+                </ComboBox>
+
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Header="Acciones"
+          Foreground="White"
+          FontFamily="Montserrat"
+          FontWeight="Bold"
+          BorderBrush="#462AD8"
+          Background="Transparent"
+          Padding="15"
+          Grid.Row="0" Grid.RowSpan="2" Margin="368,10,10,24" RenderTransformOrigin="0.5,0.5">
+            <GroupBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0"/>
+                </TransformGroup>
+            </GroupBox.RenderTransform>
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
+                <Button x:Name="btnGuardarCuenta" Content="Guardar" Style="{StaticResource CustomButtonStyle}" Margin="0,0,0,10" Click="btnGuardarCuenta_Click"/>
+                <Button x:Name="btnEditarCuenta" Content="Editar" Style="{StaticResource CustomButtonStyle}" Margin="0,0,0,10" Click="btnEditarCuenta_Click"/>
+                <Button x:Name="btnLimpiarCuenta" Content="Limpiar" Style="{StaticResource CustomButtonStyle}" Margin="0,0,0,10" Click="btnLimpiarCuenta_Click"/>
+                <Button x:Name="btnBuscarCuenta" Content="Buscar" Style="{StaticResource CustomButtonStyle}" Margin="0,0,0,10" Click="btnBuscarCuenta_Click"/>
+                <Button x:Name="btnSalirCuenta" Content="Salir" Style="{StaticResource CustomButtonStyle}" Margin="0,0,0,0" Click="btnSalirCuenta_Click"/>
+            </StackPanel>
+        </GroupBox>
+
+
+        <DataGrid x:Name="dgCuentas"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  Background="White"
+                  HeadersVisibility="Column"
+                  FontFamily="Montserrat"
+                  AlternatingRowBackground="#F0F0F0"
+                  CanUserAddRows="False"
+                  SelectionChanged="dgCuentas_SelectionChanged" Margin="0,261,0,0" Grid.RowSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="CuentaID" Binding="{Binding CuentaID}" Width="60"/>
+                <DataGridTextColumn Header="ClienteID" Binding="{Binding ClienteID}" Width="60"/>
+                <DataGridTextColumn Header="Clave Bancaria" Binding="{Binding ClaveBancaria}" Width="*"/>
+                <DataGridTextColumn Header="Tipo de Cuenta" Binding="{Binding TipoCuenta}" Width="*"/>
+                <DataGridTextColumn Header="Saldo" Binding="{Binding Saldo}" Width="*"/>
+                <DataGridTextColumn Header="Fecha de Apertura" Binding="{Binding FechaApertura}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+
+
+
+</UserControl>

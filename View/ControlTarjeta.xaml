@@ -1,0 +1,131 @@
+﻿<UserControl x:Class="Banco.View.ControlTarjeta"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Banco.View"
+             Height="600" Width="700"
+             Background="Transparent"
+             Loaded="ucTarjeta_Loaded">
+
+    <UserControl.Resources>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Montserrat"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="#462AD8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#28AEED"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="300"/>
+        </Grid.RowDefinitions>
+
+        <!-- Datos de la Tarjeta -->
+        <GroupBox Header="Datos de la Tarjeta"
+                  Foreground="White"
+                  FontFamily="Montserrat"
+                  FontWeight="Bold"
+                  BorderBrush="#462AD8"
+                  Background="Transparent"
+                  Padding="15"
+                  Grid.Row="0" Grid.RowSpan="2" Margin="0,0,0,25">
+            <Grid Height="206" Margin="0,0,309,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Clave Bancaria" Grid.Row="1" Grid.Column="0" Foreground="White" Margin="0,10,10,5"/>
+
+                <TextBlock Text="Número de Tarjeta" Grid.Row="2" Grid.Column="0" Foreground="White" Margin="0,10,10,5"/>
+                <TextBox x:Name="txtNumeroTarjeta" Background="Transparent"  IsReadOnly="True" Foreground="White"  Grid.Row="2" Grid.Column="1" Margin="0,10,0,5"/>
+
+                <TextBlock Text="CVV" Grid.Row="3" Grid.Column="0" Foreground="White" Margin="0,10,10,5"/>
+                <TextBox x:Name="txtCVV" MaxLength="4" Background="Transparent" Foreground="White" Grid.Row="3" Grid.Column="1" Margin="0,10,0,5" PreviewTextInput="txtCVV_PreviewTextInput"/>
+
+                <TextBlock Text="Fecha Expiración" Grid.Row="4" Grid.Column="0" Foreground="White" Margin="0,10,10,5"/>
+                <TextBox x:Name="txtFechaExpiracion" Background="Transparent" Foreground="White" Grid.Row="4" Grid.Column="1" Margin="0,10,0,5"/>
+
+                <TextBlock Text="PIN Hash" Grid.Row="5" Grid.Column="0" Foreground="White" Margin="0,10,10,5"/>
+                <TextBox x:Name="txtPINHash" Background="Transparent" Foreground="White" Grid.Row="5" Grid.Column="1" Margin="0,10,0,5" PreviewTextInput="txtPINHash_PreviewTextInput"/>
+
+                <TextBlock Text="Estado" Grid.Row="6" Grid.Column="0" Foreground="White" Margin="0,10,10,5"/>
+                <ComboBox x:Name="cmbEstado" Grid.Row="6" Grid.Column="1" Margin="0,10,0,5" Width="158">
+                    <ComboBoxItem Content="Activo" Tag="1" />
+                    <ComboBoxItem Content="Inactivo" Tag="0" />
+                </ComboBox>
+                <ComboBox x:Name="cmbClaveBancaria" Grid.Row="1" Grid.Column="1" Margin="0,15,1,26" Width="158" Grid.RowSpan="2">
+                </ComboBox>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Acciones"
+                  Foreground="White"
+                  FontFamily="Montserrat"
+                  FontWeight="Bold"
+                  BorderBrush="#462AD8"
+                  Background="Transparent"
+                  Padding="15"
+                  Grid.Row="0" Grid.RowSpan="2" Margin="368,10,10,25">
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
+                <Button x:Name="btnGuardarTarjeta" Content="Guardar" Style="{StaticResource CustomButtonStyle}" Margin="0,0,0,10" Click="btnGuardarTarjeta_Click"/>
+                <Button x:Name="btnEditarTarjeta" Content="Editar" Style="{StaticResource CustomButtonStyle}" Margin="0,0,0,10" Click="btnEditarTarjeta_Click"/>
+                <Button x:Name="btnLimpiarTarjeta" Content="Limpiar" Style="{StaticResource CustomButtonStyle}" Margin="0,0,0,10" Click="btnLimpiarTarjeta_Click"/>
+                <Button x:Name="btnBuscarTarjeta" Content="Buscar" Style="{StaticResource CustomButtonStyle}" Margin="0,0,0,10" Click="btnBuscarTarjeta_Click"/>
+                <Button x:Name="btnSalirTarjeta" Content="Salir" Style="{StaticResource CustomButtonStyle}" Margin="0,0,0,0" Click="btnSalirTarjeta_Click"/>
+            </StackPanel>
+        </GroupBox>
+
+        <DataGrid x:Name="dgTarjetas"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  Background="White"
+                  HeadersVisibility="Column"
+                  FontFamily="Montserrat"
+                  AlternatingRowBackground="#F0F0F0"
+                  CanUserAddRows="False"
+                  SelectionChanged="dgTarjetas_SelectionChanged"
+                  Margin="0,260,0,0" Grid.RowSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="TarjetaID" Binding="{Binding TarjetaID}" Width="60"/>
+                <DataGridTextColumn Header="CuentaID" Binding="{Binding CuentaID}" Width="60"/>
+                <DataGridTextColumn Header="Tarjeta Número" Binding="{Binding NumeroTarjeta}" Width="*"/>
+                <DataGridTextColumn Header="CVV" Binding="{Binding CVV}" Width="60"/>
+                <DataGridTextColumn Header="Expiración" Binding="{Binding FechaExpiracion}" Width="*"/>
+                <DataGridTextColumn Header="PINHash" Binding="{Binding PINHash}" Width="*"/>
+                <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
